@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 import Aux from '../../../src/hoc/Aux';
 import Burger from '../../components/Burger/Burger';
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+
 class BurgerBuilder extends Component{
     // constructor(props){
     //     super(props);
@@ -17,13 +19,12 @@ class BurgerBuilder extends Component{
     //the state is an object, not an array;
     //when we use them in burger, cannot use map mathod
 
+    
     render(){
         return(
             <Aux>
-                <div>
-                    <Burger ingredients={this.state.ingredients}/>
-                </div>
-                <div>Build Controls</div>
+                <Burger ingredients={this.state.ingredients}/>
+                <BuildControls/>
             </Aux>
         );
     }
