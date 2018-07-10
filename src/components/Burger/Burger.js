@@ -28,7 +28,7 @@ const burger =(props)=>{
         .reduce((a,b)=>{
             return a.concat(b)
         });
-    console.log(transformedIngredients);
+    // console.log(transformedIngredients);
     if(transformedIngredients.length===0){
         transformedIngredients=<p>add!</p>
 
