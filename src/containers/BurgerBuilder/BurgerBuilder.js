@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import Aux from '../../../src/hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OderSummary';
 
 
 const INGREDIENT_PRICES = {
@@ -25,9 +27,22 @@ class BurgerBuilder extends Component{
     meat:0},
         price:4,
         purchasable:false,
+        purchasing:false,
     };
     //the state is an object, not an array;
     //when we use them in burger, cannot use map mathod;
+    purchaseContinue =() =>{
+        alert('continue!')
+    };
+    purchaseCancelHandler =()=>{
+       this.setState({purchasing:false})
+    };
+    //check if the checkout button is clicked;
+    purchaseHandler  =() => {
+        this.setState({
+            purchasing:true
+        })
+    };
 
     addIngredientHandler =(type)=> {
         const oldCount = this.state.ingredients[type];
@@ -69,28 +84,32 @@ class BurgerBuilder extends Component{
         this.updatePurchaseState(type);
 
     };
-
+//calculate the sum of the ingredients;
     updatePurchaseState =(type) =>{
+
         const ingredients = {
             ...this.state.ingredients
         };
-        let orderTotal =0;
-        for(let key in ingredients){
+        // let orderTotal =0;
+        // for(let key in ingredients){
+        //
+        //     orderTotal += ingredients[key];
+        // }
+        // console.log(orderTotal);
 
-            orderTotal += ingredients[key];
-        }
-        console.log(orderTotal);
-
-        if (orderTotal==0) {
-            this.setState({
-                purchasable:false
-            })
-        }
-        else{
-            this.setState({
-                purchasable:true
-            })
-        }
+        const sum =Object.keys(ingredients)
+        //[salad,cheese, bacon,meat]
+        .map(a=>{
+            return ingredients[a]
+            //[0,1,2,3]
+        })
+            .reduce((sum,el)=>{
+                return sum+el;
+            },1);
+        console.log(sum);
+        this.setState({
+            purchasable:sum!==0
+        })
     };
     render(){
         const disabledInfo={...this.state.ingredients};
@@ -107,13 +126,21 @@ class BurgerBuilder extends Component{
 
         return(
             <Aux>
+                <Modal show ={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+                    <OrderSummary ingredients={this.state.ingredients}
+                    purchaseCanceled={this.purchaseCancelHandler}
+                                  purchaseContinue={this.purchaseContinue}
+                    price={this.state.price}/>
+                </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls
                 ingredientAdded={this.addIngredientHandler}
                 ingredientRemoved={this.removeIngredientHandler}
                 disabledInfo={disabledInfo}
                 price={this.state.price}
-                purchasable={this.state.purchasable}/>
+                purchasable={this.state.purchasable}
+                ordered= {this.purchaseHandler}/>
+
             </Aux>
         );
     }
