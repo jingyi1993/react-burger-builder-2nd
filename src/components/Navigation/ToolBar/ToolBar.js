@@ -1,5 +1,7 @@
 import React from 'react';
 
-const toolbar =()=>();
+const toolbar =()=>(
+    <div></div>
+);
 
 export default toolbar
