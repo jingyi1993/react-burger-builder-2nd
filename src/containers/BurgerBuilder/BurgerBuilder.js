@@ -15,6 +15,7 @@ const INGREDIENT_PRICES = {
     bacon: 0.7
 };
 
+
 class BurgerBuilder extends Component{
     // constructor(props){
     //     super(props);
@@ -32,38 +33,43 @@ class BurgerBuilder extends Component{
         purchasing:false,
         spinner: false,
     };
+
+    componentDidMount (){
+        console.log(this.props);
+    }
     //the state is an object, not an array;
     //when we use them in burger, cannot use map mathod;
     purchaseContinue =() =>{
 
-        this.setState({spinner: true})
-        // alert('continue!')
-        //send data to backend;
-      // const order ={
-      //    price: this.state.price
-      // };
-        const order = {
-            ingredients: this.state.ingredients,
-
-        };
-
-        axios.post( '/orders.json', order )
-            .then( response => {
-                console.log(response);
-                this.setState({
-                    spinner: false,
-                    purchasing: false
-                })
-            })
-            .catch( error => {
-                console.log(error.response);
-                this.setState({
-                    spinner: false
-                })
-            } );
+      //   this.setState({spinner: true})
+      //   // alert('continue!')
+      //   //send data to backend;
+      // // const order ={
+      // //    price: this.state.price
+      // // };
+      //   const order = {
+      //       ingredients: this.state.ingredients,
+      //
+      //   };
+      //
+      //   axios.post( '/orders.json', order )
+      //       .then( response => {
+      //           console.log(response);
+      //           this.setState({
+      //               spinner: false,
+      //               purchasing: false
+      //           })
+      //       })
+      //       .catch( error => {
+      //           console.log(error.response);
+      //           this.setState({
+      //               spinner: false
+      //           })
+      //       } );
         // axios.post('/orders.json',order)
         //     .then(response=>console.log(response))
         //     // .catch(error=>console.log(error));
+
     };
 
 
