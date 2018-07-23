@@ -29,9 +29,9 @@ class orderSummary extends Component{
                 <p><strong>Total Price:{this.props.price}</strong></p>
                 <p>Continue to check out?</p>
                 <Button btnTpre="Danger" clicked={this.props.purchaseCanceled}>CANCEL</Button>
-                <Link to='/Checkout' >
+
                 <Button btnTpre="Success" clicked={this.props.purchaseContinue}>CONTINUE</Button>
-                </Link>
+
             </Aux>
 
         )

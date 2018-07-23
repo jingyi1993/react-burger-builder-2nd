@@ -4,9 +4,9 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OderSummary';
-import axios from '../../axios';
+
 import Spinner from '../../components/UI/Spinner/Spinner';
-import withErrorHandler from '../../hoc/WithErrorHandler/WithErrorHandler';
+
 
 const INGREDIENT_PRICES = {
     salad:0.5,
@@ -69,6 +69,18 @@ class BurgerBuilder extends Component{
         // axios.post('/orders.json',order)
         //     .then(response=>console.log(response))
         //     // .catch(error=>console.log(error));
+        const queryParas =[];
+        for (let i in this.state.ingredients) {
+            queryParas.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
+        };
+        queryParas.push('price=' + this.state.price);
+
+        const queryString =queryParas.join('&');
+
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        })
 
     };
 
